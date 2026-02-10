@@ -1,0 +1,5 @@
+raw/
+**/input/
+**/output/
+*.pyc
+__pycache__

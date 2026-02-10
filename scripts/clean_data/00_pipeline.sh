@@ -1,0 +1,2 @@
+python 01_extract_loops.py
+python 02_extract_anchors.py
