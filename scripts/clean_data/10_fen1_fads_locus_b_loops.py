@@ -93,10 +93,12 @@ mass_screen_enhancers_path = "output/browser_tracks/mass_screen_enhancers.bed"
     )
 )
 
-mass_screen_enhancers_header = f"""
-track type=bed name="Enhancer Screen" description=" " interactDirectional=true maxHeightPixels=20 visibility=dense
-browser position {chrom}:{region_start}-{region_end}
+mass_screen_enhancers_header = (
+f"""track type=bed name="Enhancer Screen" description=" " """
+f"""interactDirectional=true maxHeightPixels=20 visibility=dense\n"""
+f"""browser position {chrom}:{region_start}-{region_end}
 """
+)
 
 
 with open(mass_screen_enhancers_path) as file:
@@ -127,9 +129,29 @@ ON
 ).pl()
 
 #%%
-for gene_name, gene_b_loops_bedpe in bridging_pe_loops.partition_by("gene_name", as_dict = True).items():
-    print(gene_b_loops_bedpe)
 
+
+
+for gene_name, gene_b_loops_bedpe in bridging_pe_loops.partition_by("gene_name", as_dict = True).items():
+    loop_header =(
+f"""track type=bed name="{gene_name[0]} Bridging P-E Loops" description=" " """
+f"""interactDirectional=true maxHeightPixels=20 visibility=dense\n"""
+f"""browser position {chrom}:{region_start}-{region_end}
+"""
+    )
+    path = f"output/browser_tracks/{gene_name[0]}_bridging_pe_loops.bed"
+    (
+        gene_b_loops_bedpe
+        .write_csv(
+            path,
+            include_header=False,
+            separator="\t"
+        )
+    )
+    with open(path) as file:
+        loops_text = loop_header + file.read()
+    with open(path, "w") as file:
+        file.write(loops_text)
 # %%
 # Extract the needed subset of the bigwigs
 import subprocess

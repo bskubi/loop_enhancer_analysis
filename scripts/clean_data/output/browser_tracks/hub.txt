@@ -1,0 +1,5 @@
+hub LoopEnhancerHub
+shortLabel Loop Analysis
+longLabel Loop Enhancer Analysis Hub (bskubi)
+genomesFile genomes.txt
+email bskubi@ohsu.edu

@@ -1,0 +1,6 @@
+track type=bed name="FADS3 Bridging P-E Loops" description=" " interactDirectional=true maxHeightPixels=20 visibility=dense
+browser position chr11:61719000-61902000
+chr11	61815000	61816000	chr11	61891000	61892000	FADS3
+chr11	61871000	61872000	chr11	61891000	61892000	FADS3
+chr11	61749000	61750000	chr11	61891000	61892000	FADS3
+chr11	61834000	61836000	chr11	61890000	61892000	FADS3
