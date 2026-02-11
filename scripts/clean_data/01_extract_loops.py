@@ -5,7 +5,6 @@ Convert raw Erez Aiden K562 micro-C loop calls to parquet.
 - Add center and id columns
 """
 import polars as pl
-import tinydb
 
 # New labels for all the columns in the original bedpe
 loops_header = [
@@ -23,7 +22,7 @@ loops_header = [
 loops = (
     # Load in the bedpe
     pl.read_csv(
-        "input/data/localizedList_primary_10.bedpe",
+        "raw/Loops/localizedList_primary_10.bedpe",
         separator="\t",
         comment_prefix="#",
         has_header=False,

@@ -23,7 +23,7 @@ SELECT
     
 FROM
 read_csv(
-    'input/data/Homo_sapiens.GRCh38.115.gtf.gz',
+    'raw/Genes/Homo_sapiens.GRCh38.115.gtf.gz',
     columns = {{'chrom': 'VARCHAR', 'source': 'VARCHAR', 'feature': 'VARCHAR', 'start': INTEGER, 'end': INTEGER, 'score': VARCHAR, 'strand': VARCHAR, 'frame': INTEGER, 'attribute': VARCHAR}},
     skip=5
 )

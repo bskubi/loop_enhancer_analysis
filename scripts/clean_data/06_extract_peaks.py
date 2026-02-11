@@ -12,12 +12,14 @@ def extract_tf(name, path):
             names=["chrom", "start", "end"]
         )
         .pl()
-        .select("chrom", "start", "end")
         .with_columns(
-            name=pl.lit(name)
+            name=pl.lit(name),
+            center = (pl.col.start + pl.col.end)//2
         )        
+        .select("chrom", "start", "center", "end")
+
         .sort("chrom", "start", "end")
-        .with_row_index("peak_id")
+        .with_row_index(f"{name}_id")
     )
     print(name)
     print(df)
@@ -26,14 +28,21 @@ def extract_tf(name, path):
     return df
 
 def combine_tfs(name, *dfs):
-    df = pl.concat(dfs)
+    shared_cols = set(dfs[0].columns)
+    for df in dfs:
+        shared_cols = shared_cols.intersection(df.columns)
+    dfs = [df.select(shared_cols) for df in dfs]
+    df = (
+        pl.concat(dfs, how="vertical")
+        .with_row_index(f"{name}_id")
+    )
     print(name)
     print(df)
     df.write_parquet(f"output/data/{name}.parquet")
 
-ctcf = extract_tf("CTCF", "input/data/CTCF_ENCFF901CBP.bed.gz")
-rad21 = extract_tf("RAD21", "input/data/RAD21_ENCFF439DYW.bed.gz")
-smc3 = extract_tf("SMC3", "input/data/SMC3_ENCFF289LLT.bed.gz")
+ctcf = extract_tf("CTCF", "raw/TF_ChIP/pooled_cons_IDR_peaks/CTCF_ENCFF901CBP.bed.gz")
+rad21 = extract_tf("RAD21", "raw/TF_ChIP/pooled_cons_IDR_peaks/RAD21_ENCFF439DYW.bed.gz")
+smc3 = extract_tf("SMC3", "raw/TF_ChIP/pooled_cons_IDR_peaks/SMC3_ENCFF289LLT.bed.gz")
 combine_tfs("cohesin", rad21, smc3)
 
 # %%

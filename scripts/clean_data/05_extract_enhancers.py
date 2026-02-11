@@ -7,7 +7,7 @@ import polars as pl
 # Mark Group = "*:Repressive" as "silencer" = True
 # Add index
 enhancers = (
-    duckdb.read_csv("input/data/region.annotation.fcc_starrmpra.group.2025.08.22.tsv")
+    duckdb.read_csv("raw/Kuei_enhancers/region.annotation.fcc_starrmpra.group.2025.08.22.tsv")
     .pl()
     .rename({
         "Chrom":"chrom",

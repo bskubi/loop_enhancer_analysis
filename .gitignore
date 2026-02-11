@@ -1,5 +1,5 @@
 raw/
-**/input/
-**/output/
+**/input/data/*
+**/output/data/*
 *.pyc
 __pycache__

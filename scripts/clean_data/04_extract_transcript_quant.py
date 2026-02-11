@@ -17,8 +17,8 @@ def get_replicate(path, rep: int):
         })
     )
 
-rep1 = get_replicate("input/data/transcript_quant_rep1_ENCFF190NFH.tsv", 1)
-rep2 = get_replicate("input/data/transcript_quant_rep2_ENCFF461FLA.tsv", 2)
+rep1 = get_replicate("raw/RNA/quant/transcript_quant_rep1_ENCFF190NFH.tsv", 1)
+rep2 = get_replicate("raw/RNA/quant/transcript_quant_rep2_ENCFF461FLA.tsv", 2)
 transcript_annot_ensembl = (
     pl.read_parquet("output/data/transcript_annot_ensembl.parquet")
     .drop("gene_id")
@@ -33,7 +33,7 @@ df = (
         # Transcript quants have transcript_id format like 'ENST00000475007.5'.
         # Ensembl gene annotations are labeled like 'ENST00000475007'.
         # Extract transcript_id_base from transcript quants to enable join.
-        transcript_id_base = pl.col.transcript_id.str.extract("(ENST[\d]+).(\d)", 1)
+        transcript_id_base = pl.col.transcript_id.str.extract(r"(ENST[\d]+).(\d)", 1)
     )
     .join(transcript_annot_ensembl, left_on="transcript_id_base", right_on="transcript_id")
 
@@ -56,4 +56,5 @@ df = (
 )
 df.write_parquet("output/data/transcript_quant.parquet")
 print(df)
+print(df.columns)
 # %%
