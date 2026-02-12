@@ -3,7 +3,7 @@ rm raw
 ln -s ../../raw .
 python 01_extract_loops.py
 python 02_extract_anchors.py
-python 03_extract_ensembl_annots.py
+python 03_extract_transcript_annots.py
 python 04_extract_transcript_quant.py
 python 05_extract_enhancers.py
 python 06_extract_peaks.py

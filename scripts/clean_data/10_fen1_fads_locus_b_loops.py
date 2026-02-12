@@ -1,12 +1,13 @@
 #%%
 import polars as pl
 import duckdb
+import subprocess
 
 #%%
 flank = 30000
 chrom = "chr11"
-region_start = bridging_pe_loops["start1"].min() - flank
-region_end = bridging_pe_loops["end1"].max() + flank
+region_start = 61718683
+region_end = 61901683
 print(f"chr11:{region_start}-{region_end}")
 gene_list = ["FEN1", "FADS1", "FADS2", "FADS3"]
 threshold_bp = 1000
@@ -41,9 +42,10 @@ transcripts = (
     pl.read_parquet("output/data/transcript_quant.parquet")
     .filter(
         pl.col.gene_name.is_in(gene_list),
-        pl.col.transcript_biotype == pl.lit("protein_coding")
+        pl.col.transcript_type.is_in(["protein_coding"])
     )
 )
+print(transcripts)
 
 # There are many nearby TSSs, so we will:
 # 1. Get all TSS-enhancers connected by loops 
@@ -58,6 +60,8 @@ SELECT
     transcripts.gene_name,
     transcripts.tss,
     transcripts.strand,
+    transcripts.gencode_transcript_id,
+    transcripts.gencode_transcript_id_full,
     anchors.anchor_id,
     anchors.loop_id
 FROM anchors
@@ -112,7 +116,9 @@ SELECT DISTINCT
     ea.end AS enh_end,
     pa.start AS pro_start,
     pa.end AS pro_end,
-    pa.strand AS pro_strand
+    pa.strand AS pro_strand,
+    pa.gencode_transcript_id AS gencode_transcript_id,
+    pa.gencode_transcript_id_full AS gencode_transcript_id_full,
 
 FROM promoter_anchors AS pa
 JOIN enhancer_anchors AS ea
@@ -121,6 +127,10 @@ ON
     AND pa.anchor_id != ea.anchor_id
 """
 ).pl()
+#%%
+transcript_ids = ",".join(bridging_pe_loops["gencode_transcript_id_full"].unique().to_list())
+with open("output/browser_tracks/transcript_ids.txt", "w") as file:
+    file.write(transcript_ids)
 
 #%%
 

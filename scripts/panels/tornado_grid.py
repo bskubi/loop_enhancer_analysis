@@ -204,4 +204,5 @@ for a, tf in zip("123", ["RAD21", "SMC3", "CTCF"]):
     ax_dict[a].set_title(tf)
     ax_dict[a].set_axis_off()
 
+fig.savefig("output/panels/tornado_grid/tornado_grid.png", dpi=300)
 # %%

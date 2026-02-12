@@ -1,3 +1,4 @@
+#%%
 import polars as pl
 from params import BPThresholds, ProxDistAbbr
 
@@ -25,3 +26,4 @@ anchors = (
 print("anchor_categories")
 print(anchors)
 anchors.write_parquet("output/data/anchor_categories.parquet")
+# %%
