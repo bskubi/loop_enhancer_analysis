@@ -1,7 +1,7 @@
 track FEN1_Active_CRISPRi_HCRFF
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FEN1%3AActive.hg38.CRISPRi_HCRFF.bb
 shortLabel FEN1
-longLabel FEN1:Active (ENCODE CRISPRi_HCRFF)
+longLabel FEN1
 type bigBed
 color 228,208,10
 autoScale on
@@ -11,7 +11,7 @@ labelOn off
 track FADS1_Active_CRISPRi_HCRFF
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS1%3AActive.hg38.CRISPRi_HCRFF.bb
 shortLabel FADS1
-longLabel FADS1:Active (ENCODE CRISPRi_HCRFF)
+longLabel FADS1
 type bigBed
 color 228,208,10
 autoScale on
@@ -21,7 +21,7 @@ labelOn off
 track FADS2_Active_CRISPRi_HCRFF
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS2%3AActive.hg38.CRISPRi_HCRFF.bb
 shortLabel FADS2
-longLabel FADS2:Active (ENCODE CRISPRi_HCRFF)
+longLabel FADS2
 type bigBed
 color 228,208,10
 autoScale on
@@ -31,7 +31,7 @@ labelOn off
 track FADS3_Active_CRISPRi_HCRFF
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS3%3AActive.hg38.CRISPRi_HCRFF.bb
 shortLabel FADS3
-longLabel FADS3:Active (ENCODE CRISPRi_HCRFF)
+longLabel FADS3
 type bigBed
 color 228,208,10
 autoScale on
@@ -41,7 +41,7 @@ labelOn off
 track FADS3_Silencer_CRISPRi_HCRFF
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS3%3ARepressive.hg38.CRISPRi_HCRFF.bb
 shortLabel FADS3 (Silencer)
-longLabel FADS3:Silencer (ENCODE CRISPRi_HCRFF)
+longLabel FADS3 (Silencer)
 type bigBed
 color 0,0,255
 autoScale on
@@ -51,7 +51,7 @@ labelOn off
 track Mass_Screen_Enhancers
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/mass_screen_enhancers.bb
 shortLabel Enhancer Screen
-longLabel Consensus Enhancer Mass Screen
+longLabel Enhancer Screen
 type bigBed
 color 228,208,10
 autoScale on
@@ -91,5 +91,45 @@ bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/
 shortLabel FADS3 P-E Loops
 longLabel FADS3 P-E Loops
 interactDirectional true
+maxHeightPixels 100:50:5
+visibility pack
+
+track RNA_plus
+type bigwig
+bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/RNA_plus.bw
+shortLabel RNA (+)
+longLabel RNA (+)
+maxHeightPixels 100:50:5
+visibility pack
+
+track RNA_minus
+type bigwig
+bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/RNA_minus.bw
+shortLabel RNA (-)
+longLabel RNA (-)
+maxHeightPixels 100:50:5
+visibility pack
+
+track RAD21
+type bigwig
+bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/RAD21.bw
+shortLabel RAD21
+longLabel RAD21
+maxHeightPixels 100:50:5
+visibility pack
+
+track SMC3
+type bigwig
+bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/SMC3.bw
+shortLabel SMC3
+longLabel SMC3
+maxHeightPixels 100:50:5
+visibility pack
+
+track CTCF
+type bigwig
+bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/CTCF.bw
+shortLabel CTCF
+longLabel CTCF
 maxHeightPixels 100:50:5
 visibility pack

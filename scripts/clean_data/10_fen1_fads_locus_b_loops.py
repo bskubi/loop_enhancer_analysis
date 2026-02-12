@@ -93,6 +93,7 @@ mass_screen_enhancers_path = "output/browser_tracks/mass_screen_enhancers.bed"
 (
     enhancers
     .select("chrom", "start", "end")
+    .sort("chrom", "start", "end")
     .write_csv(
         mass_screen_enhancers_path, 
         include_header=False, 
@@ -100,8 +101,7 @@ mass_screen_enhancers_path = "output/browser_tracks/mass_screen_enhancers.bed"
     )
 )
 print("Updating enhancer bb")
-subprocess.run(f"bedToBigBed -sort {mass_screen_enhancers_path} {chromsizes} output/browser_tracks/mass_screen_enhancers.bb", shell=True)
-
+subprocess.run(f"bedToBigBed {mass_screen_enhancers_path} {chromsizes} output/browser_tracks/mass_screen_enhancers.bb", shell=True)
 #%%
 
 # None of the FEN1/FADS1-3 bridging PE loops are to silencers, so leave that out.
@@ -213,11 +213,14 @@ from pathlib import Path
 bed_files = glob.glob("output/browser_tracks/*.bed")
 chromsizes = "raw/Reference/hg38.chrom.sizes"
 for file in bed_files:
-    bed_df = pl.read_csv(file, separator="\t", new_columns=["chrom", "start", "end"]).select("chrom", "start", "end")
+    bed_df = (
+        pl.read_csv(file, separator="\t", new_columns=["chrom", "start", "end"]).select("chrom", "start", "end")
+        .sort("chrom", "start", "end")
+    )
     print(bed_df)
     temp_file = Path("/tmp") / Path(file).name
     bed_df.write_csv(temp_file, separator="\t", include_header=False)
     output = Path("output/browser_tracks/") / Path(file).name.replace(".bed", ".bb")
-    command = f"bedToBigBed -sort {temp_file} {chromsizes} {output}"
+    command = f"bedToBigBed {temp_file} {chromsizes} {output}"
     subprocess.run(command, shell=True)
 # %%
