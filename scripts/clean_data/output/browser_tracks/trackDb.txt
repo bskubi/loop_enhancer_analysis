@@ -95,7 +95,7 @@ maxHeightPixels 100:50:5
 visibility pack
 
 track RNA_plus
-type bigwig
+type bigWig
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/RNA_plus.bw
 shortLabel RNA (+)
 longLabel RNA (+)
@@ -103,7 +103,7 @@ maxHeightPixels 100:50:5
 visibility pack
 
 track RNA_minus
-type bigwig
+type bigWig
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/RNA_minus.bw
 shortLabel RNA (-)
 longLabel RNA (-)
@@ -111,7 +111,7 @@ maxHeightPixels 100:50:5
 visibility pack
 
 track RAD21
-type bigwig
+type bigWig
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/RAD21.bw
 shortLabel RAD21
 longLabel RAD21
@@ -119,7 +119,7 @@ maxHeightPixels 100:50:5
 visibility pack
 
 track SMC3
-type bigwig
+type bigWig
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/SMC3.bw
 shortLabel SMC3
 longLabel SMC3
@@ -127,7 +127,7 @@ maxHeightPixels 100:50:5
 visibility pack
 
 track CTCF
-type bigwig
+type bigWig
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/CTCF.bw
 shortLabel CTCF
 longLabel CTCF
