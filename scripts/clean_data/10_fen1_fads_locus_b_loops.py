@@ -99,6 +99,7 @@ mass_screen_enhancers_path = "output/browser_tracks/mass_screen_enhancers.bed"
         separator="\t",
     )
 )
+print("Updating enhancer bb")
 subprocess.run(f"bedToBigBed -sort {mass_screen_enhancers_path} {chromsizes} output/browser_tracks/mass_screen_enhancers.bb", shell=True)
 
 #%%
