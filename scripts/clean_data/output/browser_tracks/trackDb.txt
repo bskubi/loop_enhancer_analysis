@@ -1,52 +1,57 @@
 track FEN1_Active_CRISPRi_HCRFF
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FEN1%3AActive.hg38.CRISPRi_HCRFF.bb
-shortLabel FEN1
-longLabel FEN1
+shortLabel FEN1 Enhancer
+longLabel FEN1 Enhancer
 type bigBed
 color 228,208,10
 autoScale on
 visibility dense
 labelOn off
+priority 1
 
 track FADS1_Active_CRISPRi_HCRFF
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS1%3AActive.hg38.CRISPRi_HCRFF.bb
-shortLabel FADS1
-longLabel FADS1
+shortLabel FADS1 Enhancer
+longLabel FADS1 Enhancer
 type bigBed
 color 228,208,10
 autoScale on
 visibility dense
 labelOn off
+priority 2
 
 track FADS2_Active_CRISPRi_HCRFF
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS2%3AActive.hg38.CRISPRi_HCRFF.bb
-shortLabel FADS2
-longLabel FADS2
+shortLabel FADS2 Enhancer
+longLabel FADS2 Enhancer
 type bigBed
 color 228,208,10
 autoScale on
 visibility dense
 labelOn off
+priority 3
 
 track FADS3_Active_CRISPRi_HCRFF
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS3%3AActive.hg38.CRISPRi_HCRFF.bb
-shortLabel FADS3
-longLabel FADS3
+shortLabel FADS3 Enhancer
+longLabel FADS3 Enhancer
 type bigBed
 color 228,208,10
 autoScale on
 visibility dense
 labelOn off
+priority 4
 
 track FADS3_Silencer_CRISPRi_HCRFF
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS3%3ARepressive.hg38.CRISPRi_HCRFF.bb
-shortLabel FADS3 (Silencer)
-longLabel FADS3 (Silencer)
+shortLabel FADS3 Silencer
+longLabel FADS3 Silencer
 type bigBed
 color 0,0,255
 autoScale on
 visibility dense
 labelOn off
+priority 5
 
 track Mass_Screen_Enhancers
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/mass_screen_enhancers.bb
@@ -57,6 +62,7 @@ color 228,208,10
 autoScale on
 visibility dense
 labelOn off
+priority 6
 
 track bridging_pe_loops
 type bigInteract
@@ -64,45 +70,52 @@ bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/
 shortLabel FEN1 P-E Loops
 longLabel FEN1 P-E Loops
 interactDirectional true
-maxHeightPixels 100:50:5
-visibility pack
-
-track RNA_plus
-type bigWig
-bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/RNA_plus.bw
-shortLabel RNA (+)
-longLabel RNA (+)
-maxHeightPixels 100:50:5
-visibility pack
-
-track RNA_minus
-type bigWig
-bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/RNA_minus.bw
-shortLabel RNA (-)
-longLabel RNA (-)
-maxHeightPixels 100:50:5
-visibility pack
+maxHeightPixels 100:40:5
+visibility full
+priority 7
+interactDirection ellipse
 
 track RAD21
 type bigWig
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/RAD21.bw
 shortLabel RAD21
 longLabel RAD21
-maxHeightPixels 100:50:5
-visibility pack
+maxHeightPixels 100:15:5
+visibility full
+priority 8
 
 track SMC3
 type bigWig
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/SMC3.bw
 shortLabel SMC3
 longLabel SMC3
-maxHeightPixels 100:50:5
-visibility pack
+maxHeightPixels 100:15:5
+visibility full
+priority 9
 
 track CTCF
 type bigWig
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/CTCF.bw
 shortLabel CTCF
 longLabel CTCF
-maxHeightPixels 100:50:5
-visibility pack
+maxHeightPixels 100:15:5
+visibility full
+priority 10
+
+track RNA_plus
+type bigWig
+bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/RNA_plus.bw
+shortLabel RNA (+)
+longLabel RNA (+)
+maxHeightPixels 100:15:5
+visibility full
+priority 11
+
+track RNA_minus
+type bigWig
+bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/RNA_minus.bw
+shortLabel RNA (-)
+longLabel RNA (-)
+maxHeightPixels 100:15:5
+visibility full
+priority 12
