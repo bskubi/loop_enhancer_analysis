@@ -188,3 +188,17 @@ average_bigwig(plus1, plus2, "RNA_plus")
 average_bigwig(minus1, minus2, "RNA_minus")
 
 # %%
+import glob
+from pathlib import Path
+
+bed_files = glob.glob("output/browser_tracks/*.bed")
+chromsizes = "raw/Reference/hg38.chrom.sizes"
+for file in bed_files:
+    bed_df = pl.read_csv(file, separator="\t", new_columns=["chrom", "start", "end"]).select("chrom", "start", "end")
+    print(bed_df)
+    temp_file = Path("/tmp") / Path(file).name
+    bed_df.write_csv(temp_file, separator="\t", include_header=False)
+    output = Path("output/browser_tracks/") / Path(file).name.replace(".bed", ".bb")
+    command = f"bedToBigBed -sort {temp_file} {chromsizes} {output}"
+    subprocess.run(command, shell=True)
+# %%

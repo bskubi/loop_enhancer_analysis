@@ -1,5 +1,3 @@
-track type=bed name="FADS2 Bridging P-E Loops" description=" " interactDirectional=true maxHeightPixels=20 visibility=dense
-browser position chr11:61719000-61902000
 chr11	61816000	61817000	chr11	62123000	62124000	FADS2
 chr11	61815000	61816000	chr11	61949000	61950000	FADS2
 chr11	61817000	61818000	chr11	61841000	61842000	FADS2

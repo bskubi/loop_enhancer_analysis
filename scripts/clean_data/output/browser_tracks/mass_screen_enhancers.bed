@@ -1,5 +1,3 @@
-track type=bed name="Enhancer Screen" description=" " interactDirectional=true maxHeightPixels=20 visibility=dense
-browser position chr11:61719000-61902000
 chr11	61749489	61750224
 chr11	61764359	61765179
 chr11	61771923	61772411

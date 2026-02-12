@@ -1,5 +1,3 @@
-track type=bed name="FEN1 Bridging P-E Loops" description=" " interactDirectional=true maxHeightPixels=20 visibility=dense
-browser position chr11:61719000-61902000
 chr11	61792000	61793000	chr11	62105000	62106000	FEN1
 chr11	61792000	61793000	chr11	61972000	61973000	FEN1
 chr11	61749000	61750000	chr11	61792000	61793000	FEN1

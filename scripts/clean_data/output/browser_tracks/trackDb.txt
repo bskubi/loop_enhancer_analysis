@@ -1,53 +1,54 @@
 track FEN1_Active_CRISPRi_HCRFF
-bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FEN1%3AActive.hg38.CRISPRi_HCRFF.bed
+bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FEN1%3AActive.hg38.CRISPRi_HCRFF.bb
 shortLabel FEN1
 longLabel FEN1:Active (ENCODE CRISPRi_HCRFF)
-type bed
+type bigBed
 color 242,218,0
 autoScale on
 visibility full
 
 track FADS1_Active_CRISPRi_HCRFF
-bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS1%3AActive.hg38.CRISPRi_HCRFF.bed
+bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS1%3AActive.hg38.CRISPRi_HCRFF.bb
 shortLabel FADS1
 longLabel FADS1:Active (ENCODE CRISPRi_HCRFF)
-type bed
+type bigBed
 color 242,218,0
 autoScale on
 visibility full
 
 track FADS2_Active_CRISPRi_HCRFF
-bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS2%3AActive.hg38.CRISPRi_HCRFF.bed
+bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS2%3AActive.hg38.CRISPRi_HCRFF.bb
 shortLabel FADS2
 longLabel FADS2:Active (ENCODE CRISPRi_HCRFF)
-type bed
+type bigBed
 color 242,218,0
 autoScale on
 visibility full
 
 track FADS3_Active_CRISPRi_HCRFF
-bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS3%3AActive.hg38.CRISPRi_HCRFF.bed
+bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS3%3AActive.hg38.CRISPRi_HCRFF.bb
 shortLabel FADS3
 longLabel FADS3:Active (ENCODE CRISPRi_HCRFF)
-type bed
+type bigBed
 color 242,218,0
 autoScale on
 visibility full
 
 track FADS3_Silencer_CRISPRi_HCRFF
-bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS3%3ARepressive.hg38.CRISPRi_HCRFF.bed
+bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS3%3ARepressive.hg38.CRISPRi_HCRFF.bb
 shortLabel FADS3 (Silencer)
 longLabel FADS3:Silencer (ENCODE CRISPRi_HCRFF)
-type bed
+type bigBed
 color 0,0,255
 autoScale on
 visibility full
 
 track Mass_Screen_Enhancers
-bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/mass_screen_enhancers.bed
+bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/mass_screen_enhancers.bb
 shortLabel Enhancer Screen
 longLabel Consensus Enhancer Mass Screen
-type bed
+type bigBed
 color 242,218,0
 autoScale on
 visibility full
+
