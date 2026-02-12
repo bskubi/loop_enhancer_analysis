@@ -56,6 +56,8 @@ SELECT
     anchors.start,
     anchors.end,
     transcripts.gene_name,
+    transcripts.tss,
+    transcripts.strand,
     anchors.anchor_id,
     anchors.loop_id
 FROM anchors
@@ -89,22 +91,8 @@ mass_screen_enhancers_path = "output/browser_tracks/mass_screen_enhancers.bed"
         mass_screen_enhancers_path, 
         include_header=False, 
         separator="\t",
-
     )
 )
-
-mass_screen_enhancers_header = (
-f"""track type=bed name="Enhancer Screen" description=" " """
-f"""interactDirectional=true maxHeightPixels=20 visibility=dense\n"""
-f"""browser position {chrom}:{region_start}-{region_end}
-"""
-)
-
-
-with open(mass_screen_enhancers_path) as file:
-    mass_screen_enhancers_text = mass_screen_enhancers_header + file.read()
-with open(mass_screen_enhancers_path, "w") as file:
-    file.write(mass_screen_enhancers_text)
 
 
 #%%
@@ -119,7 +107,13 @@ SELECT DISTINCT
     pa.chrom AS chrom2,
     GREATEST(pa.start, ea.start) AS start2,
     GREATEST(pa.end, ea.end) AS end2,
-    pa.gene_name
+    pa.gene_name,
+    ea.start AS enh_start,
+    ea.end AS enh_end,
+    pa.start AS pro_start,
+    pa.end AS pro_end,
+    pa.strand AS pro_strand
+
 FROM promoter_anchors AS pa
 JOIN enhancer_anchors AS ea
 ON
@@ -130,28 +124,41 @@ ON
 
 #%%
 
-
+#228, 208, 10
 
 for gene_name, gene_b_loops_bedpe in bridging_pe_loops.partition_by("gene_name", as_dict = True).items():
-    loop_header =(
-f"""track type=bed name="{gene_name[0]} Bridging P-E Loops" description=" " """
-f"""interactDirectional=true maxHeightPixels=20 visibility=dense\n"""
-f"""browser position {chrom}:{region_start}-{region_end}
-"""
-    )
-    path = f"output/browser_tracks/{gene_name[0]}_bridging_pe_loops.bed"
+    # Convert from bedpe-like to interact.as format
+    path = f"output/browser_tracks/{gene_name[0]}_bridging_pro_enh_loops.interact"
+    drop_columns = [col for col in gene_b_loops_bedpe.columns if col not in ["chrom"]]
     (
         gene_b_loops_bedpe
-        .write_csv(
-            path,
-            include_header=False,
-            separator="\t"
+        .with_columns(
+            chrom = pl.col.chrom1,
+            chromStart = pl.col.start1,
+            chromEnd = pl.col.end1,
+            name = pl.lit("."),
+            score = 1000,
+            value = 1000,
+            exp = pl.lit("."),
+            color = 0,
+            sourceChrom = pl.col.chrom1,
+            sourceStart = pl.col.enh_start,
+            sourceEnd = pl.col.enh_end,
+            sourceName = pl.lit("."),
+            sourceStrand = pl.lit("."),
+            targetChrom = pl.col.chrom1,
+            targetStart = pl.col.pro_start,
+            targetEnd = pl.col.pro_end,
+            targetName = pl.lit("."),
+            targetStrand = pl.col.pro_strand
         )
+        .sort("chrom", "chromStart", "chromEnd")
+        .drop(*drop_columns)
+        .write_csv(path, separator="\t", include_header=False)
     )
-    with open(path) as file:
-        loops_text = loop_header + file.read()
-    with open(path, "w") as file:
-        file.write(loops_text)
+    chromsizes = "raw/Reference/hg38.chrom.sizes"
+    output = f"output/browser_tracks/{gene_name[0]}_bridging_pro_enh_loops.bb"
+    subprocess.run(f"bedToBigBed -as=output/browser_tracks/interact.as -type=bed5+13 {path} {chromsizes} {output}", shell=True)
 # %%
 # Extract the needed subset of the bigwigs
 import subprocess

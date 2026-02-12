@@ -3,36 +3,40 @@ bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/
 shortLabel FEN1
 longLabel FEN1:Active (ENCODE CRISPRi_HCRFF)
 type bigBed
-color 242,218,0
+color 228,208,10
 autoScale on
-visibility full
+visibility dense
+labelOn off
 
 track FADS1_Active_CRISPRi_HCRFF
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS1%3AActive.hg38.CRISPRi_HCRFF.bb
 shortLabel FADS1
 longLabel FADS1:Active (ENCODE CRISPRi_HCRFF)
 type bigBed
-color 242,218,0
+color 228,208,10
 autoScale on
-visibility full
+visibility dense
+labelOn off
 
 track FADS2_Active_CRISPRi_HCRFF
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS2%3AActive.hg38.CRISPRi_HCRFF.bb
 shortLabel FADS2
 longLabel FADS2:Active (ENCODE CRISPRi_HCRFF)
 type bigBed
-color 242,218,0
+color 228,208,10
 autoScale on
-visibility full
+visibility dense
+labelOn off
 
 track FADS3_Active_CRISPRi_HCRFF
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS3%3AActive.hg38.CRISPRi_HCRFF.bb
 shortLabel FADS3
 longLabel FADS3:Active (ENCODE CRISPRi_HCRFF)
 type bigBed
-color 242,218,0
+color 228,208,10
 autoScale on
-visibility full
+visibility dense
+labelOn off
 
 track FADS3_Silencer_CRISPRi_HCRFF
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS3%3ARepressive.hg38.CRISPRi_HCRFF.bb
@@ -41,14 +45,51 @@ longLabel FADS3:Silencer (ENCODE CRISPRi_HCRFF)
 type bigBed
 color 0,0,255
 autoScale on
-visibility full
+visibility dense
+labelOn off
 
 track Mass_Screen_Enhancers
 bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/mass_screen_enhancers.bb
 shortLabel Enhancer Screen
 longLabel Consensus Enhancer Mass Screen
 type bigBed
-color 242,218,0
+color 228,208,10
 autoScale on
-visibility full
+visibility dense
+labelOn off
 
+track FEN1_bridging_pe_loops
+type bigInteract
+bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FEN1_bridging_pro_enh_loops.bb
+shortLabel FEN1 P-E Loops
+longLabel FEN1 P-E Loops
+interactDirectional true
+maxHeightPixels 100:50:5
+visibility pack
+
+track FADS1_bridging_pe_loops
+type bigInteract
+bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS1_bridging_pro_enh_loops.bb
+shortLabel FADS1 P-E Loops
+longLabel FADS1 P-E Loops
+interactDirectional true
+maxHeightPixels 100:50:5
+visibility pack
+
+track FADS2_bridging_pe_loops
+type bigInteract
+bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS2_bridging_pro_enh_loops.bb
+shortLabel FADS2 P-E Loops
+longLabel FADS2 P-E Loops
+interactDirectional true
+maxHeightPixels 100:50:5
+visibility pack
+
+track FADS3_bridging_pe_loops
+type bigInteract
+bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/heads/main/scripts/clean_data/output/browser_tracks/FADS3_bridging_pro_enh_loops.bb
+shortLabel FADS3 P-E Loops
+longLabel FADS3 P-E Loops
+interactDirectional true
+maxHeightPixels 100:50:5
+visibility pack

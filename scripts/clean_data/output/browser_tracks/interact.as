@@ -1,0 +1,22 @@
+table interact
+"Interaction between two regions"
+(
+    string chrom;      "Chromosome (or contig, scaffold, etc.)"
+    uint chromStart;   "Start position in chromosome"
+    uint chromEnd;     "End position in chromosome"
+    string name;       "Name of item"
+    uint score;        "Score from 0-1000"
+    double value;      "Strength of interaction or other data value"
+    string exp;        "Experiment name (metadata for filtering). Use '.' if unknown"
+    uint color;        "Item color"
+    string sourceChrom;  "Chromosome of source region (anchor 1)"
+    uint sourceStart;    "Start of source region"
+    uint sourceEnd;      "End of source region"
+    string sourceName;   "Name of source region"
+    string sourceStrand; "Strand of source region (+ or - or .)"
+    string targetChrom;  "Chromosome of target region (anchor 2)"
+    uint targetStart;    "Start of target region"
+    uint targetEnd;      "End of target region"
+    string targetName;   "Name of target region"
+    string targetStrand; "Strand of target region (+ or - or .)"
+)
