@@ -1,4 +1,5 @@
 #%%
+from pathlib import Path
 import polars as pl
 import duckdb
 import subprocess
@@ -11,6 +12,7 @@ region_end = 61901683
 print(f"chr11:{region_start}-{region_end}")
 gene_list = ["FEN1", "FADS1", "FADS2", "FADS3"]
 threshold_bp = 1000
+chromsizes = "raw/Reference/hg38.chrom.sizes"
 #%%
 
 # For computational efficiency,
@@ -97,7 +99,7 @@ mass_screen_enhancers_path = "output/browser_tracks/mass_screen_enhancers.bed"
         separator="\t",
     )
 )
-
+subprocess.run(f"bedToBigBed -sort {mass_screen_enhancers_path} {chromsizes} output/browser_tracks/mass_screen_enhancers.bb", shell=True)
 
 #%%
 
@@ -171,8 +173,7 @@ for gene_name, gene_b_loops_bedpe in bridging_pe_loops.partition_by("gene_name",
     subprocess.run(f"bedToBigBed -as=output/browser_tracks/interact.as -type=bed5+13 {path} {chromsizes} {output}", shell=True)
 # %%
 # Extract the needed subset of the bigwigs
-import subprocess
-from pathlib import Path
+
 def extract_bigwig(chrom, start, end, chromsizes, input, outpfx):
     bedgraph = f"output/browser_tracks/{outpfx}.bg"
     command1 = f"bigWigToBedGraph -chrom={chrom} -start={start} -end={end} {input} {bedgraph}"
