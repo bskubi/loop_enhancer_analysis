@@ -139,39 +139,39 @@ with open("output/browser_tracks/transcript_ids.txt", "w") as file:
 
 #228, 208, 10
 
-for gene_name, gene_b_loops_bedpe in bridging_pe_loops.partition_by("gene_name", as_dict = True).items():
-    # Convert from bedpe-like to interact.as format
-    path = f"output/browser_tracks/{gene_name[0]}_bridging_pro_enh_loops.interact"
-    drop_columns = [col for col in gene_b_loops_bedpe.columns if col not in ["chrom"]]
-    (
-        gene_b_loops_bedpe
-        .with_columns(
-            chrom = pl.col.chrom1,
-            chromStart = pl.col.start1,
-            chromEnd = pl.col.end1,
-            name = pl.lit("."),
-            score = 1000,
-            value = 1000,
-            exp = pl.lit("."),
-            color = 0,
-            sourceChrom = pl.col.chrom1,
-            sourceStart = pl.col.enh_start,
-            sourceEnd = pl.col.enh_end,
-            sourceName = pl.lit("."),
-            sourceStrand = pl.lit("."),
-            targetChrom = pl.col.chrom1,
-            targetStart = pl.col.pro_start,
-            targetEnd = pl.col.pro_end,
-            targetName = pl.lit("."),
-            targetStrand = pl.col.pro_strand
-        )
-        .sort("chrom", "chromStart", "chromEnd")
-        .drop(*drop_columns)
-        .write_csv(path, separator="\t", include_header=False)
+path = f"output/browser_tracks/bridging_pe_loops.interact"
+drop_columns = [col for col in bridging_pe_loops.columns if col not in ["chrom"]]
+(
+    bridging_pe_loops
+    .with_columns(
+        chrom = pl.col.chrom1,
+        chromStart = pl.col.start1,
+        chromEnd = pl.col.end1,
+        name = pl.lit("."),
+        score = 1000,
+        value = 1000,
+        exp = pl.lit("."),
+        color = 0,
+        sourceChrom = pl.col.chrom1,
+        sourceStart = pl.col.enh_start,
+        sourceEnd = pl.col.enh_end,
+        sourceName = pl.lit("."),
+        sourceStrand = pl.lit("."),
+        targetChrom = pl.col.chrom1,
+        targetStart = pl.col.pro_start,
+        targetEnd = pl.col.pro_end,
+        targetName = pl.lit("."),
+        targetStrand = pl.col.pro_strand
     )
-    chromsizes = "raw/Reference/hg38.chrom.sizes"
-    output = f"output/browser_tracks/{gene_name[0]}_bridging_pro_enh_loops.bb"
-    subprocess.run(f"bedToBigBed -as=output/browser_tracks/interact.as -type=bed5+13 {path} {chromsizes} {output}", shell=True)
+    .sort("chrom", "chromStart", "chromEnd")
+    .drop(*drop_columns)
+    .write_csv(path, separator="\t", include_header=False)
+)
+chromsizes = "raw/Reference/hg38.chrom.sizes"
+output = f"output/browser_tracks/bridging_pe_loops.bb"
+subprocess.run(f"bedToBigBed -as=output/browser_tracks/interact.as -type=bed5+13 {path} {chromsizes} {output}", shell=True)
+import sys
+sys.exit()
 # %%
 # Extract the needed subset of the bigwigs
 
