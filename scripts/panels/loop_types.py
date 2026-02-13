@@ -11,9 +11,11 @@ import seaborn as sns
 import numpy as np
 
 anchors = pl.read_parquet("input/data/anchor_neighbors.parquet")
-fig = plt.figure(figsize=(6,2), layout="constrained")
-fig.suptitle("Anchors Are Bimodally Positioned With Respect to CREs and Cohesin")
-fig.supxlabel("Distance (kb) From Loop Anchor Center To Nearest Element")
+
+# 80mm x 35mm
+fig = plt.figure(figsize=(3.14,1.38), layout="constrained")
+fig.suptitle("Anchors Are Bimodally Positioned\nWith Respect to CREs and Cohesin", fontsize=7)
+fig.supxlabel("Distance From Loop Anchor Center To Nearest Element", fontsize=7)
 axes = fig.subplots(1,3, sharey=True)
 mpl.rcParams.update({"font.size":7})
 tss_ax: Axes = axes[0]
@@ -66,33 +68,39 @@ proximal_color = grey
 distal_color = "#FFFFFF"
 tss_ax.axvspan(xmin=0, xmax=1000, color=proximal_color)
 tss_ax.axvspan(xmin=1000, xmax=x_max, color=distal_color)
-tss_ax.set_xlabel("TSS")
+tss_ax.set_xlabel("TSS", fontsize=7)
 enh_ax.axvspan(xmin=0, xmax=1000, color=proximal_color)
 enh_ax.axvspan(xmin=1000, xmax=x_max, color=distal_color)
-enh_ax.set_xlabel("Enhancer Center")
+enh_ax.set_xlabel("Enhancer", fontsize=7)
 coh_ax.axvspan(xmin=0, xmax=2900, color=proximal_color)
 coh_ax.axvspan(xmin=2900, xmax=x_max, color=distal_color)
-coh_ax.set_xlabel("Cohesin Peak Center")
+coh_ax.set_xlabel("Cohesin Peak", fontsize=7)
 
-coh_ax.legend(
+fig.legend(
     handles=[
         Patch(label="Proximal", facecolor=proximal_color, edgecolor="grey", linewidth=1),
         Patch(label="Distal", facecolor="#FFFFFF", edgecolor="grey", linewidth=1)
     ],
+    handlelength=1,
     loc="upper right",
-    frameon=False
+    bbox_to_anchor=(1.02,1.02),
+    frameon=False,
+    fontsize=7
 )
 
 for ax in axes:
     ax: Axes
     ax.set_xscale("log")
     ax.spines[["top", "right"]].set_visible(False)
-    ticks = [10, 100, 1000, 10000, 100000,1000000]
-    tick_labels = [".01", ".1", "1", "10", "100", "1000"]
-    ax.set_xticks(ticks, tick_labels)
+    ticks = [1000, 1000000]
+    tick_labels = ["1kb", "1mb"]
+    ax.set_xticks(ticks, tick_labels, fontsize=7)
+    ax.set_yticks([1, 3, 5], ["1%", "3%", "5%"], fontsize=7)
     ax.tick_params(which="minor", bottom=False)
     ax.set_facecolor("white")
+    ax.set_ylabel("")
 
-fig.savefig("output/panels/anchor_to_element_distance/anchor_to_element_distance.png", dpi=300, transparent=True)
-fig.savefig("output/panels/anchor_to_element_distance/anchor_to_element_distance.svg", bbox_inches="tight", transparent=True)
+
+fig.savefig("output/panels/loop_types/loop_types.png", dpi=300, transparent=True)
+fig.savefig("output/panels/loop_types/loop_types.svg", dpi=300, transparent=True)
 # %%

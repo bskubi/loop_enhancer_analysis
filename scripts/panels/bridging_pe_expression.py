@@ -112,7 +112,7 @@ palette_map = {
     "4+": "#0047AB"
 }
 
-fig = plt.figure(figsize=(4,2))
+fig = plt.figure(figsize=(3.15,1.38), layout="constrained")
 mpl.rcParams.update({"font.size":7})
 ax = sns.ecdfplot(
     bridging_pe_expression.filter(pl.col.distal_enhancer_interaction_count == pl.lit("0")),
@@ -136,6 +136,7 @@ ax = sns.ecdfplot(
     stat="percent"
 )
 ax.set_ylim(0,100)
+ax.set_ylabel("%", fontsize=7)
 ax.set_xscale("symlog", linthresh=2)
 legend_elements = [
     Line2D([0], [0], color=palette_map["0"], lw=1, linestyle=':', label='0'),
@@ -144,11 +145,11 @@ legend_elements = [
     Line2D([0], [0], color=palette_map["3"], lw=1, linestyle='-', label='3'),
     Line2D([0], [0], color=palette_map["4+"], lw=1, linestyle='-', label='4+')
 ]
-ax.legend(handles=legend_elements, title="P-E Loops", loc="lower right", frameon=False)
+ax.legend(handles=legend_elements, title="P-E Loops", loc="lower right", frameon=False, fontsize=7, ncol=2)
 ax.set_xlabel("log(TPM) Residuals")
-ax.set_xticks([-2, -1, 0, 1, 2, 3, 4], ["-2", "-1", "0", "1", "2", "3", "4"])
-fig.suptitle("Bridging P-E Loops Are A Binary On-Switch For Expression")
+ax.set_xticks([-2, -1, 0, 1, 2, 3, 4], ["-2", "-1", "0", "1", "2", "3", "4"], fontsize=7)
+fig.suptitle("Bridging P-E Loops: A Binary On-Switch For Expression", fontsize=7)
 sns.despine()
 fig.savefig("output/panels/bridging_pe_expression/bridging_pe_expression.png", dpi=300)
-fig.savefig("output/panels/bridging_pe_expression/bridging_pe_expression.svg", dpi=300, bbox_inches="tight")
+fig.savefig("output/panels/bridging_pe_expression/bridging_pe_expression.svg", dpi=300)
 # %%

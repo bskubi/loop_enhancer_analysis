@@ -42,14 +42,12 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 nrows = 3
 ncols = 8
-width = ncols * .5
-height = nrows * 2
 
-# 1. Pyplot binds backend and IPython display hooks
-fig = plt.figure(figsize=(width, height))
+# 80mm x 60mm
+fig = plt.figure(figsize=(3.15, 2.36))
 mpl.rcParams["font.size"]=7
 
-fig.suptitle("Distribution of Cohesin and CTCF At Loop Anchors")
+fig.suptitle("Distribution of Cohesin and CTCF At Loop Anchors", fontsize=7)
 
 
 ax_dict = fig.subplot_mosaic(
@@ -64,7 +62,7 @@ gridspec_kw={
     "width_ratios": [
         1,1, .5, 1,1, .5, 1,1
     ],
-    "height_ratios": [.1,1,2,2,2]
+    "height_ratios": [.1,1,1,1,1]
 }
 )
 
@@ -160,6 +158,7 @@ for i, (row, coh_name) in enumerate(zip(rows[2:], coh_names)):
             # Format ticks to appear on the left side
             cax.yaxis.set_ticks_position("left")
             cax.yaxis.set_label_position("left")
+            cax.tick_params(axis="y", which="both", pad=-.07)
 
         line_styles = {
             "D": "-",
@@ -181,6 +180,7 @@ for i, (row, coh_name) in enumerate(zip(rows[2:], coh_names)):
         )
         mean_ax1.set_ylim(vmin, vmax)
         mean_ax1.set_yticks([vmin, int(vmax)])
+        mean_ax1.tick_params(axis="y", which="both", pad=-.07)
 
         # Construct the A1 mean lineplot
         mean_ax2 = ax_dict[next(mean_keys_iter)]
@@ -219,42 +219,42 @@ for k, ax in ax_dict.items():
     ax.set_xlim(-2000,2000)
     ax.tick_params(axis="x", length=0)
 
-ax_dict["a"].set_ylabel("Sig Pval\n(Mean)")
-ax_dict["a"].yaxis.set_label_coords(-.5, .5)
-ax_dict["b"].set_ylabel("Dependent")
-ax_dict["b"].yaxis.set_label_coords(-.5, .5)
-ax_dict["c"].set_ylabel("Hemi-Independent")
-ax_dict["c"].yaxis.set_label_coords(-.5, .5)
-ax_dict["d"].set_ylabel("Independent")
-ax_dict["d"].yaxis.set_label_coords(-.5, .5)
+ax_dict["a"].set_ylabel("Mean\nPval", fontsize=7)
+ax_dict["a"].yaxis.set_label_coords(-.3, .5)
+ax_dict["b"].set_ylabel("Dep.", fontsize=7)
+ax_dict["b"].yaxis.set_label_coords(-.3, .5)
+ax_dict["c"].set_ylabel("Hemi-Ind.", fontsize=7)
+ax_dict["c"].yaxis.set_label_coords(-.3, .5)
+ax_dict["d"].set_ylabel("Ind.", fontsize=7)
+ax_dict["d"].yaxis.set_label_coords(-.3, .5)
 
 handles, labels = ax_dict["a"].get_legend_handles_labels()
-labels[labels.index("D")] = "Dependent"
-labels[labels.index("H")] = "Hemi-Independent"
-labels[labels.index("I")] = "Independent"
+labels[labels.index("D")] = "Dep."
+labels[labels.index("H")] = "Hemi-Ind."
+labels[labels.index("I")] = "Ind."
 
 fig.legend(
     handles, 
     labels, 
-    loc="upper center",
-    bbox_to_anchor=(.5, .95),
+    loc="upper left",
+    # bbox_to_anchor=(-.2, 1.01),
     ncol=3, 
     frameon=False,
     fontsize=7
 )
 
 for a in "aiq":
-    ax_dict[a].set_xlabel("A1")
+    ax_dict[a].set_xlabel("A1", fontsize=7)
     ax_dict[a].xaxis.set_label_position("top")
 for a in "emu":
-    ax_dict[a].set_xlabel("A2")
+    ax_dict[a].set_xlabel("A2", fontsize=7)
     ax_dict[a].xaxis.set_label_position("top")
 
 for a, tf in zip("123", ["RAD21", "SMC3", "CTCF"]):
-    ax_dict[a].set_title(tf, pad=.05)
-    ax_dict[a].plot([0.1, 0.9], [.5, .5], color='black', transform=ax_dict[a].transAxes, linewidth=.5)
+    ax_dict[a].set_title(tf, y=.95, fontsize=7)
+    # ax_dict[a].plot([0.1, 0.9], [.5, .5], color='black', transform=ax_dict[a].transAxes, linewidth=.5)
     ax_dict[a].set_axis_off()
 
 fig.savefig("output/panels/tornado_grid/tornado_grid.png", dpi=300, pad_inches=0, transparent=True)
-fig.savefig("output/panels/tornado_grid/tornado_grid.svg", bbox_inches="tight", dpi=300, pad_inches=0, transparent=True)
+fig.savefig("output/panels/tornado_grid/tornado_grid.svg", dpi=300, pad_inches=0, transparent=True)
 # %%

@@ -31,8 +31,8 @@ loops = (
         on = "loop_id"
     )
 )
-
-fig = plt.figure(figsize=(3,2), layout="constrained")
+# 80mm x 59mm
+fig = plt.figure(figsize=(3.149,2.32), layout="constrained")
 mpl.rcParams.update({"font.size":7})
 grey = "#DEE2E6"
 blue = "#007FFF"
@@ -46,12 +46,12 @@ ax = sns.violinplot(
     edgecolor="black"
 )
 sns.despine()
-ax.set_xticks(ax.get_xticks(), ["Dependent\n(Peak +/+)", "Hemi-Independent\n(Peak +/-)", "Independent\n(Peak -/-)"])
-ax.set_yticks([1,2,5,10,20], ["1", "2", "5", "10", "20"])
+ax.set_xticks(ax.get_xticks(), ["Dependent\n(Peak +/+)", "Hemi-Independent\n(Peak +/-)", "Independent\n(Peak -/-)"], fontsize=7)
+ax.set_yticks([1,2,5,10,20], ["1", "2", "5", "10", "20"], fontsize=7)
 ax.tick_params(axis="y", which="minor", length=0)
-ax.set_ylabel("Loop Strength (O/E)")
-ax.set_xlabel("Cohesin Dependence of Loops")
-fig.suptitle("Bridging P-E Loop Strength Is Cohesin-Invariant")
-fig.savefig("output/panels/bridging_pe_loop_strength_is_cohesin_independent/bridging_pe_loop_strength_is_cohesin_independent.png", dpi=300)
-fig.savefig("output/panels/bridging_pe_loop_strength_is_cohesin_independent/bridging_pe_loop_strength_is_cohesin_independent.svg", bbox_inches="tight")
+ax.set_ylabel("Loop Strength (O/E)", fontsize=7)
+ax.set_xlabel("Cohesin Dependence of Loops", fontsize=7)
+fig.suptitle("Bridging P-E Loop Strength Is Cohesin-Invariant", fontsize=7)
+fig.savefig("output/panels/metaloop_violinplot/metaloop_violinplot.png", dpi=300)
+fig.savefig("output/panels/metaloop_violinplot/metaloop_violinplot.svg", dpi=300)
 # %%
