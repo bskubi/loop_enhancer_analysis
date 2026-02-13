@@ -23,7 +23,7 @@ SELECT
     
 FROM
 read_csv(
-    'raw/Genes/gencode.v47.annotation.gtf.gz',
+    'raw/Genes/gencode.v49.annotation.gtf.gz',
     columns = {{'chrom': 'VARCHAR', 'source': 'VARCHAR', 'feature': 'VARCHAR', 'start': INTEGER, 'end': INTEGER, 'score': VARCHAR, 'strand': VARCHAR, 'frame': INTEGER, 'attribute': VARCHAR}},
     skip=5
 )

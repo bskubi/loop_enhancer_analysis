@@ -3,7 +3,7 @@ bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/
 shortLabel FEN1 Enhancer
 longLabel FEN1 Enhancer
 type bigBed
-color 228,208,10
+color 0,0,0
 autoScale on
 visibility dense
 labelOn off
@@ -14,7 +14,7 @@ bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/
 shortLabel FADS1 Enhancer
 longLabel FADS1 Enhancer
 type bigBed
-color 228,208,10
+color 0,0,0
 autoScale on
 visibility dense
 labelOn off
@@ -25,7 +25,7 @@ bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/
 shortLabel FADS2 Enhancer
 longLabel FADS2 Enhancer
 type bigBed
-color 228,208,10
+color 0,0,0
 autoScale on
 visibility dense
 labelOn off
@@ -36,7 +36,7 @@ bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/
 shortLabel FADS3 Enhancer
 longLabel FADS3 Enhancer
 type bigBed
-color 228,208,10
+color 0,0,0
 autoScale on
 visibility dense
 labelOn off
@@ -47,7 +47,7 @@ bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/
 shortLabel FADS3 Silencer
 longLabel FADS3 Silencer
 type bigBed
-color 0,0,255
+color 0,0,0
 autoScale on
 visibility dense
 labelOn off
@@ -58,7 +58,7 @@ bigDataUrl https://raw.githubusercontent.com/bskubi/loop_enhancer_analysis/refs/
 shortLabel Enhancer Screen
 longLabel Enhancer Screen
 type bigBed
-color 228,208,10
+color 0,0,0
 autoScale on
 visibility dense
 labelOn off

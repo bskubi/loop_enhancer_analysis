@@ -82,38 +82,68 @@ data_extent = [-2000, 2000, 0, 20]
 mean_keys = "aeimqu"
 
 @dataclass
-class ColorRange:
+class VminVmax:
     vmin: int = None
     vmax: int = None
 
-color_ranges = {}
+# Get the min/max value for the color range and ylim for the mean lineplot
+# For vmax, use 
+vmin_vmax = {}
 for tf_name in tf_names:
-    color_ranges[tf_name] = ColorRange()
+    vmin_vmax[tf_name] = VminVmax()
     for key, data in tf_data.items():
         if tf_name in key:
-            crange = color_ranges[tf_name]
+            tf_vmin_vmax = vmin_vmax[tf_name]
             mean = np.nanmean(data, axis=0)
-            crange.vmin = 0
+            tf_vmin_vmax.vmin = 0
             nanmax = np.nanmax(mean)
-            crange.vmax = nanmax if crange.vmax is None else max(nanmax, crange.vmax)
-            color_ranges[tf_name] = crange
-            
+            tf_vmin_vmax.vmax = nanmax if tf_vmin_vmax.vmax is None else max(nanmax, tf_vmin_vmax.vmax)
+            vmin_vmax[tf_name] = tf_vmin_vmax
 
-mean_max = {tf_name: 0 for tf_name in tf_names}
 
 for i, (row, coh_name) in enumerate(zip(rows[2:], coh_names)):
     mean_keys_iter = iter("aeimqu")
 
     for j, (tf_name, a1_a2) in enumerate(zip(tf_names, row)):
+        # Get the per-anchor data
         a1, a2 = a1_a2
         a1_data = tf_data[("B", coh_name, tf_name, "a1")]
         a2_data = tf_data[("B", coh_name, tf_name, "a2")]
-        crange = color_ranges[tf_name]
-        vmin = crange.vmin
-        vmax = crange.vmax
-        im = ax_dict[a1].imshow(a1_data, extent=data_extent, cmap="cividis", interpolation="nearest", aspect="auto", vmin=vmin, vmax=vmax)
+
+        # Get the per-TF vmin/vmax (also used as the mean lineplot ylim)
+        tf_vmin_vmax = vmin_vmax[tf_name]
+        vmin = tf_vmin_vmax.vmin
+        vmax = tf_vmin_vmax.vmax
+
+        # Construct the A1 heatmap
+        im = ax_dict[a1].imshow(
+            a1_data, 
+            extent=data_extent, 
+            cmap="gray_r", 
+            interpolation="nearest", 
+            aspect="auto", 
+            vmin=vmin, 
+            vmax=vmax,
+            rasterized=True,
+            interpolation_stage='rgba'
+        )
+
+        # Construct the A2 heatmap
+        im = ax_dict[a2].imshow(
+            a2_data, 
+            extent=data_extent, 
+            cmap="gray_r", 
+            interpolation="nearest", 
+            aspect="auto", 
+            vmin=vmin, 
+            vmax=vmax,
+            rasterized=True,
+            interpolation_stage='rgba'
+        )
+
+        # Extract the colormap
         if i == 0:
-        # Get the bounding box of the target axes in figure coordinates
+            # Get the bounding box of the target axes in figure coordinates
             pos = ax_dict[a1].get_position()
             
             # Define colorbar dimensions relative to that box
@@ -126,44 +156,61 @@ for i, (row, coh_name) in enumerate(zip(rows[2:], coh_names)):
             
             cax = fig.add_axes(cax_rect)
             cb = fig.colorbar(im, cax=cax, ticks=[0, int(vmax)])
+            cb.outline.set_visible(False)
             # Format ticks to appear on the left side
             cax.yaxis.set_ticks_position("left")
             cax.yaxis.set_label_position("left")
-        im = ax_dict[a2].imshow(a2_data, extent=data_extent, cmap="cividis", interpolation="nearest", aspect="auto", vmin=vmin, vmax=vmax)
+
+        line_styles = {
+            "D": "-",
+            "H": "--",
+            "I": ":"
+        }
         
+        # Construct the A1 mean lineplot
         mean_ax1 = ax_dict[next(mean_keys_iter)]
         x = np.linspace(-2000, 2000, a1_data.shape[1])
         y = np.nanmean(a1_data, axis=0)
-        mean_ax1.plot(x, y, label=coh_name)
-        mean_max[tf_name] = max(mean_max[tf_name], y.max())
-        mean_ax1.set_yticks([0, int(vmax)])
+        mean_ax1.plot(
+            x, 
+            y, 
+            label=coh_name, 
+            ls=line_styles[coh_name],
+            color="black",
+            linewidth=1
+        )
+        mean_ax1.set_ylim(vmin, vmax)
+        mean_ax1.set_yticks([vmin, int(vmax)])
 
+        # Construct the A1 mean lineplot
         mean_ax2 = ax_dict[next(mean_keys_iter)]
         x = np.linspace(-2000, 2000, a2_data.shape[1])
         y = np.nanmean(a2_data, axis=0)
-        mean_ax2.plot(x, y)
+        mean_ax2.plot(
+            x, 
+            y, 
+            ls=line_styles[coh_name],
+            color="black",
+            linewidth=1
+        )
         mean_ax2.set_yticks([])
-        mean_max[tf_name] = max(mean_max[tf_name], y.max())
+        mean_ax2.set_ylim(vmin, vmax)
 
-for i, (row, coh_name) in enumerate(zip(rows[2:], coh_names)):
-    mean_keys_iter = iter("aeimqu")
 
-    for j, (tf_name, a1_a2) in enumerate(zip(tf_names, row)):
-        mean_ax1 = ax_dict[next(mean_keys_iter)]
-        mean_ax1.set_ylim(0, mean_max[tf_name])
-        mean_ax2 = ax_dict[next(mean_keys_iter)]
-        mean_ax2.set_ylim(0, mean_max[tf_name])
+
 
 
 for k, ax in ax_dict.items():
     if k not in mean_keys:
         ax.yaxis.set_ticks([])
     if k not in "aeimquAE":
-        for key, spine in ax.spines.items():
-            spine.set_visible(False)
+        # Leave spines for heatmaps
+        pass
     elif k in "aiq":
+        # Remove top/right spines for A1 mean plots
         ax.spines[["top", "right"]].set_visible(False)
     elif k in "emu":
+        # Only bottom spines for A2 mean plots as they share a y axis
         ax.spines[["top", "right", "left"]].set_visible(False)
     if k not in "dhlptxDH":
         ax.xaxis.set_ticks([])
@@ -174,20 +221,23 @@ for k, ax in ax_dict.items():
 
 ax_dict["a"].set_ylabel("Sig Pval\n(Mean)")
 ax_dict["a"].yaxis.set_label_coords(-.5, .5)
-ax_dict["b"].set_ylabel("D", rotation=0)
+ax_dict["b"].set_ylabel("Dependent")
 ax_dict["b"].yaxis.set_label_coords(-.5, .5)
-ax_dict["c"].set_ylabel("H", rotation=0)
+ax_dict["c"].set_ylabel("Hemi-Independent")
 ax_dict["c"].yaxis.set_label_coords(-.5, .5)
-ax_dict["d"].set_ylabel("I", rotation=0)
+ax_dict["d"].set_ylabel("Independent")
 ax_dict["d"].yaxis.set_label_coords(-.5, .5)
 
 handles, labels = ax_dict["a"].get_legend_handles_labels()
+labels[labels.index("D")] = "Dependent"
+labels[labels.index("H")] = "Hemi-Independent"
+labels[labels.index("I")] = "Independent"
 
 fig.legend(
     handles, 
     labels, 
-    loc="upper left",
-    bbox_to_anchor=(0.3, .95),
+    loc="upper center",
+    bbox_to_anchor=(.5, .95),
     ncol=3, 
     frameon=False,
     fontsize=7
@@ -201,8 +251,10 @@ for a in "emu":
     ax_dict[a].xaxis.set_label_position("top")
 
 for a, tf in zip("123", ["RAD21", "SMC3", "CTCF"]):
-    ax_dict[a].set_title(tf)
+    ax_dict[a].set_title(tf, pad=.05)
+    ax_dict[a].plot([0.1, 0.9], [.5, .5], color='black', transform=ax_dict[a].transAxes, linewidth=.5)
     ax_dict[a].set_axis_off()
 
-fig.savefig("output/panels/tornado_grid/tornado_grid.png", dpi=300)
+fig.savefig("output/panels/tornado_grid/tornado_grid.png", dpi=300, pad_inches=0, transparent=True)
+fig.savefig("output/panels/tornado_grid/tornado_grid.svg", bbox_inches="tight", dpi=300, pad_inches=0, transparent=True)
 # %%
